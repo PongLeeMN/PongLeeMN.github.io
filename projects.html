@@ -6,7 +6,8 @@
 <meta name="description" content="Pong Lee, Software Engineer. Explore projects, experience, skills, and résumé.">
 <title>Projects — Pong Lee</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23121618'/%3E%3Ctext x='6' y='23' fill='%23b5e9cf' font-family='Arial' font-size='20' font-weight='bold'%3EP%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=api-playground-1">
+<link rel="stylesheet" href="style.css?v=api-playground-2">
+<script src="playground.js?v=2" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -51,9 +52,9 @@
 
 <section class="api-playground" aria-labelledby="api-playground-title">
 <div class="api-playground-heading">
-<span class="eyebrow">INTERACTIVE PREVIEW · SAMPLE DATA</span>
+<span class="eyebrow">INTERACTIVE PREVIEW · PAGE-ONLY SAMPLE DATA</span>
 <h3 id="api-playground-title">Try the FishingLog API.</h3>
-<p class="api-note">Choose an endpoint and run it against sample catch records. This preview is simulated; it does not connect to a live server.</p>
+<p class="api-note">Explore every endpoint with sample catch records. Changes last while you stay on this page and reset when you leave or reload. This simulation makes no network requests; validation errors are simplified.</p>
 </div>
 <div class="api-controls">
 <div class="api-field">
@@ -65,27 +66,47 @@
 <option value="species">GET /fish/species?species=…</option>
 <option value="lake">GET /fish/lake?lake=…</option>
 <option value="search">GET /fish/search?species=…&amp;lake=…</option>
+<option value="create">POST /fish</option>
+<option value="update">PUT /fish/{id}</option>
+<option value="delete">DELETE /fish/{id}</option>
 </select>
 </div>
-<div class="api-field">
+<div class="api-field" data-demo-field="id" hidden>
+<label for="demo-id">Record ID</label>
+<input id="demo-id" type="number" min="1" step="1" value="1">
+</div>
+<div class="api-field" data-demo-field="species" hidden>
 <label for="demo-species">Species</label>
 <input id="demo-species" type="text" value="Walleye" autocomplete="off">
 </div>
-<div class="api-field">
+<div class="api-field" data-demo-field="lake" hidden>
 <label for="demo-lake">Lake</label>
 <input id="demo-lake" type="text" value="Lake Superior" autocomplete="off">
 </div>
-<div class="api-field">
-<label for="demo-k">Top K</label>
-<input id="demo-k" type="number" min="0" step="1" value="2">
+<div class="api-field" data-demo-field="weight" hidden>
+<label for="demo-weight">Weight (lb)</label>
+<input id="demo-weight" type="number" min="0.01" step="any" value="5.4">
 </div>
-<button class="button primary api-run" id="run-api-demo" type="button">Run example</button>
+<div class="api-field" data-demo-field="k" hidden>
+<label for="demo-k">Top K</label>
+<input id="demo-k" type="number" step="1" value="2">
+</div>
+<div class="api-actions">
+<button class="button primary api-run" id="run-api-demo" type="button">Run request</button>
+<button class="button" id="reset-api-demo" type="button">Reset sample data</button>
+</div>
 </div>
 <div class="api-result">
-<p class="api-request"><span>GET</span> <code id="demo-request-path">/fish</code></p>
+<p class="api-request"><span id="demo-request-method">GET</span> <code id="demo-request-path">/fish</code></p>
+<div id="demo-request-body-wrap" hidden>
+<span class="eyebrow">REQUEST BODY</span>
+<pre class="api-response api-request-body" id="demo-request-body"></pre>
+</div>
 <p class="api-status" id="demo-status" role="status">Simulated response · sample data only</p>
 <pre class="api-response" id="demo-response" aria-label="Sample API response" aria-live="polite"></pre>
+<p class="api-state" id="demo-record-count">4 sample records on this page</p>
 </div>
+<noscript><p>This preview needs JavaScript to run.</p></noscript>
 </section>
 
 </article>
@@ -117,80 +138,7 @@
 <span>Built with intention.</span>
 </footer>
 
-<script>
-(() => {
-  const fish = [
-    { species: "Walleye", weight: 5.4, lake: "Lake Superior", id: 1 },
-    { species: "Northern Pike", weight: 8.2, lake: "Fish Lake", id: 2 },
-    { species: "Walleye", weight: 3.1, lake: "Lake Superior", id: 3 },
-    { species: "Smallmouth Bass", weight: 2.7, lake: "Fish Lake", id: 4 }
-  ];
-  const endpoint = document.getElementById("demo-endpoint");
-  const speciesInput = document.getElementById("demo-species");
-  const lakeInput = document.getElementById("demo-lake");
-  const kInput = document.getElementById("demo-k");
-  const requestPath = document.getElementById("demo-request-path");
-  const response = document.getElementById("demo-response");
-  const status = document.getElementById("demo-status");
-  const button = document.getElementById("run-api-demo");
 
-  function runDemo() {
-    const species = speciesInput.value.trim();
-    const lake = lakeInput.value.trim();
-    const params = new URLSearchParams();
-    let route = "/fish";
-    let result = fish;
-
-    if (endpoint.value === "count") {
-      route = "/fish/count";
-      result = fish.length;
-    } else if (endpoint.value === "biggest") {
-      const rawK = kInput.value.trim();
-      const parsedK = Number.parseInt(rawK, 10);
-      const k = Number.isNaN(parsedK) ? 0 : parsedK;
-      params.set("k", rawK || "0");
-      route = "/fish/biggest";
-      result = fish.slice().sort((a, b) => b.weight - a.weight).slice(0, Math.max(0, k));
-    } else if (endpoint.value === "species") {
-      if (!species) {
-        status.textContent = "Enter a species to run this example.";
-        return;
-      }
-      params.set("species", species);
-      route = "/fish/species";
-      result = fish.filter(item => item.species.toLowerCase() === species.toLowerCase());
-    } else if (endpoint.value === "lake") {
-      if (!lake) {
-        status.textContent = "Enter a lake to run this example.";
-        return;
-      }
-      params.set("lake", lake);
-      route = "/fish/lake";
-      result = fish.filter(item => item.lake.trim().toLowerCase() === lake.toLowerCase());
-    } else if (endpoint.value === "search") {
-      if (!species || !lake) {
-        status.textContent = "Enter both a species and a lake to run this example.";
-        return;
-      }
-      params.set("species", species);
-      params.set("lake", lake);
-      route = "/fish/search";
-      result = fish.filter(item =>
-        item.species.toLowerCase() === species.toLowerCase() &&
-        item.lake.trim().toLowerCase() === lake.toLowerCase()
-      );
-    }
-
-    requestPath.textContent = route + (params.size ? "?" + params.toString() : "");
-    response.textContent = JSON.stringify(result, null, 2);
-    status.textContent = "Simulated response · sample data only · no live request sent";
-  }
-
-  button.addEventListener("click", runDemo);
-  endpoint.addEventListener("change", runDemo);
-  runDemo();
-})();
-</script>
 
 </body>
 </html>
