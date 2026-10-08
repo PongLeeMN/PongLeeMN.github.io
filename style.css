@@ -29,3 +29,9 @@ ul{color:var(--muted);padding-left:22px}li{margin-bottom:10px}.project .button{m
 .api-request-body{margin:7px 0 14px;max-height:130px}
 .api-state{font-size:12px;margin:12px 0 0}
 .api-field[hidden],#demo-request-body-wrap[hidden]{display:none}
+
+.api-controls>.api-field:first-child{grid-column:1/-1}
+.api-actions .button{cursor:pointer}
+.api-actions .button:not(.primary){background:transparent;color:var(--text)}
+.api-actions .button:not(.primary):hover{background:#25302c}
+#reset-api-demo:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
