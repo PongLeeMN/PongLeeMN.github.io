@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-pong-lee",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pong Lee - Software Engineering Portfolio",
+  "scripts": {
+    "build": "node scripts/build-analytics.js"
+  },
+  "devDependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
