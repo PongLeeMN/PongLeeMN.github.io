@@ -3,38 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Pong Lee, Software Engineer. Explore projects, experience, skills, and résumé.">
-<title>Projects — Pong Lee</title>
+<meta name="description" content="Explore FishingLog, a Java and Spring Boot REST API, and Homework Tracker, a Flutter and Firebase app by Pong Lee.">
+<title>Projects | Pong Lee</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23121618'/%3E%3Ctext x='6' y='23' fill='%23b5e9cf' font-family='Arial' font-size='20' font-weight='bold'%3EP%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=api-playground-3">
+<link rel="preload" href="assets/fonts/Manrope-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=revamp-1">
 <script src="playground.js?v=2" defer></script>
-</head>
+<script>document.documentElement.classList.add('js');try{const t=localStorage.getItem('portfolio-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch{}</script><script src="site.js?v=1" defer></script><meta property="og:title" content="Projects | Pong Lee"><meta property="og:description" content="Explore FishingLog, a Java and Spring Boot REST API, and Homework Tracker, a Flutter and Firebase app by Pong Lee."><meta property="og:type" content="website"><link rel="canonical" href="https://pongleemn.github.io/projects.html"></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header>
-<a class="brand" href="index.html" aria-label="Pong Lee home">pong<span>.</span></a>
-<nav aria-label="Main navigation">
-<a href="index.html">Home</a>
-<a href="projects.html" aria-current="page">Projects</a>
-<a href="experience.html">Experience</a>
-<a href="skills.html">Skills</a>
-<a href="resume.html">Résumé &amp; Contact</a>
-</nav>
-</header>
+<header><a class="brand" href="index.html" aria-label="Pong Lee home">pong<span>.</span></a><nav id="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="projects.html" aria-current="page">Projects</a><a href="experience.html">Experience</a><a href="skills.html">Skills</a><a href="resume.html">Résumé &amp; Contact</a></nav><div class="header-controls"><button class="theme-toggle" data-theme-toggle type="button">Theme</button><button class="menu-toggle" data-menu-toggle type="button" aria-controls="site-nav" aria-expanded="false">Menu</button></div></header>
 <main id="main">
 <section class="page-heading">
-<div class="eyebrow">01 / WORK</div>
+
 <h1>Selected <span>projects.</span></h1>
 <p class="intro">Practical problems, deliberate decisions, and software built to work beyond a single run.</p>
 </section>
 <section class="project-list" aria-label="Selected projects">
-<article class="project">
-<div class="project-visual" aria-hidden="true">
-<span class="large-number">01</span>
-<span class="visual-label">FISHINGLOG / REST API</span>
-</div>
+<article class="project" id="fishinglog">
+<div class="project-visual"><img src="assets/fishing.webp" srcset="assets/fishing-600.webp 600w, assets/fishing-900.webp 900w, assets/fishing.webp 1200w" sizes="(max-width: 767px) calc(100vw - 48px), 600px" width="1200" height="800" alt="Illustration of a fishing boat beside a wooded lake" loading="lazy"></div>
 <div>
-<span class="eyebrow">PERSONAL PROJECT · JAVA · SPRING BOOT · POSTGRESQL</span>
+<p class="project-type">Personal project · Java / Spring Boot / PostgreSQL</p>
 <h2>A fishing log,<br>built to last.</h2>
 <p>FishingLog is a REST API for storing and exploring fish records, built with separate controller, service, and repository layers.</p>
 <ul>
@@ -52,7 +40,7 @@
 
 <section class="api-playground" aria-labelledby="api-playground-title">
 <div class="api-playground-heading">
-<span class="eyebrow">INTERACTIVE PREVIEW · PAGE-ONLY SAMPLE DATA</span>
+<p class="project-type">Interactive preview · Sample data</p>
 <h3 id="api-playground-title">Try the FishingLog API.</h3>
 <p class="api-note">Explore every endpoint with sample catch records. Changes last while you stay on this page and reset when you leave or reload. This simulation makes no network requests; validation errors are simplified.</p>
 </div>
@@ -99,7 +87,7 @@
 <div class="api-result">
 <p class="api-request"><span id="demo-request-method">GET</span> <code id="demo-request-path">/fish</code></p>
 <div id="demo-request-body-wrap" hidden>
-<span class="eyebrow">REQUEST BODY</span>
+<span class="project-type">Request body</span>
 <pre class="api-response api-request-body" id="demo-request-body"></pre>
 </div>
 <p class="api-status" id="demo-status" role="status">Simulated response · sample data only</p>
@@ -110,13 +98,10 @@
 </section>
 
 </article>
-<article class="project">
-<div class="project-visual" aria-hidden="true">
-<span class="large-number">02</span>
-<span class="visual-label">HOMEWORK TRACKER</span>
-</div>
+<article class="project secondary-detail" id="homework-tracker">
+<div class="project-index"><span>Course project</span><p>Flutter<br>Firebase</p></div>
 <div>
-<span class="eyebrow">COURSE PROJECT · FLUTTER · FIREBASE</span>
+<p class="project-type">Course project · Flutter / Firebase</p>
 <h2>Homework Tracker.</h2>
 <p>A mobile app for organizing assignments and courses, built with Flutter and Firebase.</p>
 <ul>
@@ -132,11 +117,7 @@
 </article>
 </section>
 </main>
-<footer>
-<a class="brand" href="index.html">pong<span>.</span></a>
-<span>Pong Lee · Software Engineer</span>
-<span>Built with intention.</span>
-</footer>
+<footer><a class="brand" href="index.html" aria-label="Pong Lee home">pong<span>.</span></a><span>Pong Lee · Software Engineer</span><div class="footer-links"><a href="https://github.com/PongLeeMN" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/pongleemn" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></footer>
 
 
 
