@@ -11,13 +11,19 @@
     })
     .then(stats => {
       if (stats.username !== 'PongLee') throw new Error('Unexpected profile');
-      if (!Number.isInteger(stats.solved.All) || stats.solved.All < 0) throw new Error('Invalid stats');
-      const summary = card.querySelector('[data-summary]');
-      summary.textContent = `· ${stats.solved.All.toLocaleString()} solved`;
-      summary.title = `Stats updated ${date(stats.updatedAt)}`;
-      summary.hidden = false;
+      for (const difficulty of ['Easy', 'Medium', 'Hard']) {
+        if (!Number.isInteger(stats.solved[difficulty]) || stats.solved[difficulty] < 0) {
+          throw new Error('Invalid stats');
+        }
+      }
+      const lastSolved = stats.lastSolved ? `Last solved ${date(stats.lastSolved)}` : 'No recent accepted submissions';
+      for (const difficulty of ['Easy', 'Medium', 'Hard']) {
+        card.querySelector(`[data-difficulty="${difficulty}"]`).textContent = stats.solved[difficulty].toLocaleString();
+      }
+      card.querySelector('[data-last-solved]').textContent = lastSolved;
+      card.querySelector('[data-last-solved]').title = `Stats updated ${date(stats.updatedAt)}`;
     })
     .catch(() => {
-      // Keep the profile link usable when the stats snapshot is unavailable.
+      card.querySelector('[data-last-solved]').textContent = 'Stats unavailable · View profile for current activity';
     });
 })();
