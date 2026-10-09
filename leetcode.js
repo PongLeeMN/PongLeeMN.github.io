@@ -11,21 +11,13 @@
     })
     .then(stats => {
       if (stats.username !== 'PongLee') throw new Error('Unexpected profile');
-      for (const difficulty of ['All', 'Easy', 'Medium', 'Hard']) {
-        if (!Number.isInteger(stats.solved[difficulty]) || !Number.isInteger(stats.totals[difficulty])) {
-          throw new Error('Invalid stats');
-        }
-      }
-      card.querySelector('[data-total]').textContent = stats.solved.All.toLocaleString();
-      for (const difficulty of ['Easy', 'Medium', 'Hard']) {
-        card.querySelector(`[data-difficulty="${difficulty}"]`).textContent =
-          `${stats.solved[difficulty].toLocaleString()} / ${stats.totals[difficulty].toLocaleString()}`;
-      }
-      card.querySelector('[data-last-solved]').textContent = stats.lastSolved
-        ? `Last solved ${date(stats.lastSolved)}` : 'No recent accepted submissions';
-      card.querySelector('[data-updated]').textContent = `Stats updated ${date(stats.updatedAt)}`;
+      if (!Number.isInteger(stats.solved.All) || stats.solved.All < 0) throw new Error('Invalid stats');
+      const summary = card.querySelector('[data-summary]');
+      summary.textContent = `· ${stats.solved.All.toLocaleString()} solved`;
+      summary.title = `Stats updated ${date(stats.updatedAt)}`;
+      summary.hidden = false;
     })
     .catch(() => {
-      card.querySelector('[data-updated]').textContent = 'Stats are unavailable. View my LeetCode profile for current counts.';
+      // Keep the profile link usable when the stats snapshot is unavailable.
     });
 })();
