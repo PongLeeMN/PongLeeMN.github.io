@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
