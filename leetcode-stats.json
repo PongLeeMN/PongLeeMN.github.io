@@ -1,9 +1,9 @@
 {
   "username": "PongLee",
   "solved": {
-    "All": 29,
+    "All": 30,
     "Easy": 24,
-    "Medium": 5,
+    "Medium": 6,
     "Hard": 0
   },
   "totals": {
@@ -12,6 +12,6 @@
     "Medium": 2128,
     "Hard": 983
   },
-  "lastSolved": "2026-10-14T04:03:33+00:00",
-  "updatedAt": "2026-10-16T16:37:04.890096+00:00"
+  "lastSolved": "2026-10-17T03:44:41+00:00",
+  "updatedAt": "2026-10-17T15:32:03.659502+00:00"
 }
